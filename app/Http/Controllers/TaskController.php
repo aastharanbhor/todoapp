@@ -11,16 +11,17 @@ class TaskController extends Controller
     public function index()
     {
         $user = auth()->user();
-
+    
         if (!$user) {
             return redirect()->route('login')->with('error', 'Please log in to view your tasks.');
         }
     
-        // Retrieve tasks for the authenticated user
-        $tasks = $user->tasks;
+        // Retrieve non-soft-deleted tasks for the authenticated user
+        $tasks = $user->tasks()->whereNull('deleted_at')->get();
     
         return view('tasks.index', compact('tasks'));
     }
+    
 
     // Show form to create a new task
     public function create()
@@ -76,10 +77,11 @@ class TaskController extends Controller
     public function destroy($id)
     {
         $task = Task::findOrFail($id);
-        $task->delete();
+        $task->delete(); // This now soft deletes the task
 
         return redirect()->route('tasks.index');
     }
+
 
     public function toggleCompletion(Request $request, $id)
     {
