@@ -5,8 +5,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
 </head>
 <body class="bg-gray-100">
-
-    <div class="container mx-auto mt-10">
+@extends('layouts.app')
+@section('content')
+    <div class="container mx-auto mt-1">
         <h1 class="text-2xl font-bold mb-5">To-Do List of {{ Auth::user()->name }}</h1>
 
         <!-- Add Task Form -->
@@ -38,6 +39,7 @@
             @endforeach
         </ul>
     </div>
+    @endsection
 
 </body>
 </html>

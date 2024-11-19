@@ -69,11 +69,14 @@
     
         <main class="py-4">
     @yield('content')
-    <div class="container mx-auto mt-5 text-center">
-        <a href="{{ route('tasks.index') }}" class="go-to-tasks-btn">
-            Go to Tasks
-        </a>
-    </div>
+    {{-- Conditional Button Display --}}
+    @if(Route::currentRouteName() === 'home' && Auth::check())
+        <div class="container mx-auto mt-5 text-center">
+            <a href="{{ route('tasks.index') }}" class="go-to-tasks-btn">
+                Go to Tasks
+            </a>
+        </div>
+    @endif
 </main>
 
     </div>
