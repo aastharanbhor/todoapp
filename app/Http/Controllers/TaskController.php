@@ -65,9 +65,9 @@ class TaskController extends Controller
     public function update(Request $request, $id)
     {
         $task = Task::findOrFail($id);
-        $task->completed = $request->has('completed');
+        $task->completed = !$task->completed; // Toggle the completed status
         $task->save();
-
+        
         return redirect()->route('tasks.index');
 
     }
